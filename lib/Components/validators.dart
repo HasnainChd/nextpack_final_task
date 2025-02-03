@@ -7,7 +7,6 @@ class Validator {
       return 'Please enter a valid email';
     }
     return null;
-
   }
 
   static String? passwordValidator(String? value) {
@@ -25,9 +24,9 @@ class Validator {
 
   static String? nameValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'please enter you name';
+      return 'please enter you name..';
     } else if (RegExp(r'[0-9]').hasMatch(value)) {
-      return 'Please enter a valid name';
+      return 'Please enter a valid name..';
     }
     return null;
   }

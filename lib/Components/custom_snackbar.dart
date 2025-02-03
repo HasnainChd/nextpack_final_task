@@ -14,6 +14,7 @@ class CustomSnackBar {
 
   static errorSnackBar(String text) {
     return Get.snackbar(
+      duration: Duration(seconds: 5),
       backgroundColor: Colors.red,
       'Error',
       text,

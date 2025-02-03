@@ -139,24 +139,34 @@ class LoginPage extends StatelessWidget {
                             },
                             text: 'Login'),
                         SizedBox(height: 20),
-                        // TextButton(
-                        //     onPressed: () {
-                        //       Get.off(SignUpPage());
-                        //     },
-                        //     child: Text('Signup')),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextComponent(
+                                text: 'Not registered yet?',
+                                fontSize: 16,
+                                color: Colors.white54),
+                            TextButton(
+                                onPressed: () {
+                                  Get.offAll(SignUpPage());
+                                },
+                                child: Text('SignUp ')),
+                          ],
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextComponent(
                               text: 'or Continue With',
-                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
                               color: Colors.white54,
                             ),
                           ],
                         ),
                         SizedBox(height: 20),
                         Center(
-                          child: InkWell(
+                          child: GestureDetector(
                             onTap: () async {
                               final result =
                                   await authController.signInWithGoogle();
@@ -167,8 +177,14 @@ class LoginPage extends StatelessWidget {
                                   'login Successful');
                               Get.offAll(UserProfile());
                             },
-                            child: Image.asset('assets/google_image.png',
-                                height: 30),
+                            child: Obx(
+                              ()=> authController.isLoading.value
+                                  ? CircularProgressIndicator(
+                                      color: Colors.white,
+                                    )
+                                  : Image.asset('assets/google_image.png',
+                                      height: 30),
+                            ),
                           ),
                         )
                       ],

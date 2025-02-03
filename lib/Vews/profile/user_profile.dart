@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:next_final_task/Components/custom_snackbar.dart';
 import 'package:next_final_task/Components/edit_dialog.dart';
 import 'package:next_final_task/Components/text_component.dart';
 import 'package:next_final_task/Controllers/auth_controller.dart';
@@ -32,6 +33,7 @@ class UserProfile extends StatelessWidget {
           IconButton(
               onPressed: () async {
                 authController.signOut();
+                CustomSnackBar.successSnackBar('signOut successful');
               },
               icon: Icon(
                 Icons.logout,
@@ -51,21 +53,23 @@ class UserProfile extends StatelessWidget {
               final user = snapshots.data;
               return Column(
                 children: [
-                  Obx(() => InkWell(
-                    onTap: () {
-                      userController.pickImage();
-                    },
-                    child: CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.deepPurple.shade200,
-                      backgroundImage: userController.selectedImage.value != null
-                          ? FileImage(userController.selectedImage.value!) // Use FileImage
-                          : null,
-                      child: userController.selectedImage.value == null
-                          ? Icon(Icons.camera_alt, color: Colors.white)
-                          : null, // Remove icon when an image is selected
-                    ),
-                  )),
+                  Obx(() => GestureDetector(
+                        onTap: () {
+                          userController.pickImage();
+                        },
+                        child: CircleAvatar(
+                          radius: 70,
+                          backgroundColor: Colors.deepPurple.shade200,
+                          backgroundImage:
+                              userController.selectedImage.value != null
+                                  ? FileImage(userController
+                                      .selectedImage.value!) // Use FileImage
+                                  : null,
+                          child: userController.selectedImage.value == null
+                              ? Icon(Icons.camera_alt, color: Colors.white)
+                              : null, // Remove icon when an image is selected
+                        ),
+                      )),
                   SizedBox(height: 20),
                   Column(
                     children: [
@@ -85,10 +89,9 @@ class UserProfile extends StatelessWidget {
                           onPressed: () {
                             showEditDialog(
                               context,
-                              user['name'] ?? "No Name", // Pass current name
+                              user['name'] ?? "No Name",
                               (newName) {
-                                userController
-                                    .updateName(newName); // Update Firestore
+                                userController.updateName(newName);
                               },
                             );
                           },

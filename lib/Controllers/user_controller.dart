@@ -15,12 +15,14 @@ class UserController extends GetxController {
   Rx<File?> selectedImage = Rx<File?>(null);
   final ImagePicker picker = ImagePicker();
 
+  var userName = "".obs;
+
   @override
   void onInit() {
     if (currentUser != null) {
       if (kDebugMode) {
         print("Logged-in User UID: ${currentUser!.uid}");
-      } // Debugging
+      }
       userStream.value = FirebaseFirestore.instance
           .collection('users')
           .doc(currentUser!.uid)
@@ -31,7 +33,7 @@ class UserController extends GetxController {
 
   Future<void> updateName(String newName) async {
     return await FirebaseFirestore.instance
-        .collection('user')
+        .collection('users')
         .doc(currentUser!.uid)
         .update({'name': newName});
   }

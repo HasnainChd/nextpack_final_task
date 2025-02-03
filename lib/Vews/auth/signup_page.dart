@@ -32,9 +32,9 @@ class SignUpPage extends StatelessWidget {
             //Form
             Container(
               height: MediaQuery.sizeOf(context).height,
+              width: MediaQuery.sizeOf(context).width,
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.25),
-              width: MediaQuery.sizeOf(context).width,
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(
@@ -140,7 +140,7 @@ class SignUpPage extends StatelessWidget {
                             validator: Validator.passwordValidator,
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 30),
                         ButtonComponent(
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
@@ -154,11 +154,20 @@ class SignUpPage extends StatelessWidget {
                             },
                             text: 'SignUp'),
                         SizedBox(height: 20),
-                        // TextButton(
-                        //     onPressed: () {
-                        //       Get.off(LoginPage());
-                        //     },
-                        //     child: Text('Signup')),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextComponent(
+                                text: 'Already have an account?',
+                                fontSize: 16,
+                                color: Colors.white54),
+                            TextButton(
+                                onPressed: () {
+                                  Get.offAll(LoginPage());
+                                },
+                                child: Text('Login')),
+                          ],
+                        ),
                         Center(
                           child: TextComponent(
                             text: 'or SignUp With',
@@ -166,7 +175,7 @@ class SignUpPage extends StatelessWidget {
                             color: Colors.white54,
                           ),
                         ),
-                        SizedBox(height: 30),
+                        SizedBox(height: 20),
                         //showing other authentication methods(images)
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

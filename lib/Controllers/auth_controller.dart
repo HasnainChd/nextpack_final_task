@@ -70,7 +70,8 @@ class AuthController extends GetxController {
       User? user = userCredential?.user;
       if (user != null) {
         if (!user.emailVerified) {
-          final EmailVerificationController controller = Get.put(EmailVerificationController());
+          final EmailVerificationController controller =
+              Get.put(EmailVerificationController());
           controller.showVerificationDialog(user);
         } else {
           await SharedPrefHelper.saveUserData(
@@ -93,6 +94,7 @@ class AuthController extends GetxController {
 
   //sign in with google
   Future<UserCredential?> signInWithGoogle() async {
+    isLoading.value = true;
     try {
       final GoogleSignInAccount? googleSignIn = await GoogleSignIn().signIn();
 
@@ -105,8 +107,11 @@ class AuthController extends GetxController {
       );
       return await FirebaseAuth.instance.signInWithCredential(credential);
     } catch (e) {
+      isLoading.value = false;
       CustomSnackBar.errorSnackBar('something went wrong: ${e.toString()}');
       return null;
+    } finally {
+      isLoading.value = false;
     }
   }
 
