@@ -19,6 +19,9 @@ class AuthController extends GetxController {
   var loginEmailController = TextEditingController();
   var loginPasswordController = TextEditingController();
 
+  final EmailVerificationController controller =
+      Get.put(EmailVerificationController());
+
   RxBool isPasswordVisible = false.obs;
   RxBool isLoading = false.obs;
 
@@ -70,12 +73,13 @@ class AuthController extends GetxController {
       User? user = userCredential?.user;
       if (user != null) {
         if (!user.emailVerified) {
-          final EmailVerificationController controller =
-              Get.put(EmailVerificationController());
           controller.showVerificationDialog(user);
         } else {
           await SharedPrefHelper.saveUserData(
-              user.uid, user.email ?? '', user.displayName ?? '');
+            user.uid,
+            user.email ?? '',
+            user.displayName ?? '',
+          );
           CustomSnackBar.successSnackBar('Sign-in successful');
           Get.offAll(UserProfile());
         }

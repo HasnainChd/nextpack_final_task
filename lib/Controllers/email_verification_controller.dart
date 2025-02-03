@@ -52,18 +52,22 @@ class EmailVerificationController extends GetxController {
               ],
             )),
         actions: [
-          Obx(() => ElevatedButton(
+          Obx(
+            () => ElevatedButton(
               onPressed:
                   timer.value > 0 ? null : () => resendEmailVerification(user),
               child: TextComponent(
-                  text: 'Resend', fontSize: 16, color: Colors.green.shade200))),
+                  text: 'Resend', fontSize: 16, color: Colors.green.shade200),
+            ),
+          ),
           TextButton(
-              onPressed: () {
-                countDown?.cancel();
-                Get.back();
-              },
-              child: TextComponent(
-                  text: 'Cancel', fontSize: 16, color: Colors.red.shade200))
+            onPressed: () {
+              countDown?.cancel();
+              Get.back();
+            },
+            child: TextComponent(
+                text: 'Cancel', fontSize: 16, color: Colors.red.shade200),
+          ),
         ],
       ),
       barrierDismissible: false,
